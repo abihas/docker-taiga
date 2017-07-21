@@ -1,39 +1,33 @@
-# Example Taiga Setup
+Based on https://github.com/benhutchins/docker-taiga
 
-This repo contains several example configurations for setting up Taiga using [docker-taiga](https://github.com/benhutchins/docker-taiga).
+To use this example, as-is, simply clone this repo and startup Docker:
 
-## Simple Example
+```bash
+git clone https://github.com/abihas/docker-taiga mytaiga
+cd mytaiga/
 
-If you want a very simple example, simply pull the `docker-compose.yml` file from here:
-https://github.com/benhutchins/docker-taiga/tree/master/docker-compose.yml
+# Optional, but likely desired, update your configuration now
+nano docker-compose.yml # Be sure to update the TAIGA_HOSTNAME
+nano taiga-conf/conf.json
+nano taiga-conf/local.py
+
+# Startup docker containers
+docker-compose up -d postgres
+docker-compose up -d taiga
+
+# Wait ~30 seconds. The taiga container will initialize your postgres database.
+
+# Now open your web browser:
+open http://localhost:5555/
+````
+
+### How to enable the LDAP plugin
 
 ## Customized Example (Adds Slack & LDAP support)
 
 For a slightly more customized setup, this directory provides an example of how
 to extend docker-taiga and add [taiga-contrib-slack](https://github.com/taigaio/taiga-contrib-slack) and [taiga-contrib-ldap-auth](https://github.com/ensky/taiga-contrib-ldap-auth) LDAP
 plugins.
-
-To use this example, as-is, simply clone this repo and startup Docker:
-
-```bash
-git clone https://github.com/benhutchins/docker-taiga-example.git mytaiga
-cd mytaiga/
-
-# Optional, but likely desired, update your configuration now
-vi docker-compose.yml # Be sure to update the TAIGA_HOSTNAME
-vi taiga-conf/conf.json
-vi taiga-conf/local.py
-
-# Startup docker containers
-docker-compose  up -d
-
-# Wait ~30 seconds. The taiga container will initialize your postgres database.
-
-# Now open your web browser:
-open http://localhost/
-````
-
-### How to enable the LDAP plugin
 
 To enable LDAP as well:
 
